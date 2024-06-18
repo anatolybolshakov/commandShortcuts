@@ -21,7 +21,7 @@ You can specify operation name which be displayed in notification:
 
 You can also disable sound using 1 as last argument - it is 0 by default (you would need to pass op name as positional argument first although):
 
-`long operation; f "" 1`
+`long operation; f * 1`
 
 Or you can disable it constantly - by setting up `IS_SOUND_ENABLED` to `False` in the `CompleteNotification\doneNotification.py`.
 

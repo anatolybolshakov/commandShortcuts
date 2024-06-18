@@ -14,8 +14,7 @@ def _play_sound():
         playsound(os.path.join(script_dir, 'assets/success.mp3'))
 
 def handle_done_notification(op_name, no_sound):
-    
-    message = 'Unnamed operation' if op_name.isspace() else op_name
+    message = 'Unnamed operation' if op_name == None or op_name.isspace() else op_name
 
     if no_sound == 0:
         sound_thread = threading.Thread(target=_play_sound)
@@ -27,3 +26,4 @@ def handle_done_notification(op_name, no_sound):
         app_name='Scripts',
         timeout=0,
     )
+
