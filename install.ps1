@@ -13,24 +13,21 @@ function Get-AbsolutePath() {
 $ErrorActionPreference = "Stop"
 
 Write-Output "Installing dependencies"
-pip install -r CompleteNotification/requirements.txt
+pip install -r requirements.txt
 
 Write-Output "Updating Path environment variable"
 
-$predefinedAliasScriptsFolderPath = "predefinedAliasScripts"
-$userAliasScriptsFolderPath = "userAliasScripts"
+$aliasScriptsFolderPath = "aliasScripts"
 
 $parentDirectory = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
-$predefinedAliasScriptsAbsolutePath = Get-AbsolutePath -ParentFolderPath $parentDirectory -RelativePath $predefinedAliasScriptsFolderPath
-$userAliasScriptsAbsolutePath = Get-AbsolutePath -ParentFolderPath $parentDirectory -RelativePath $userAliasScriptsFolderPath
+$aliasScriptsAbsolutePath = Get-AbsolutePath -ParentFolderPath $parentDirectory -RelativePath $aliasScriptsFolderPath
 
-Write-Output "Predefined aliases folder path: $predefinedAliasScriptsAbsolutePath"
-Write-Output "User aliases folder path: $userAliasScriptsAbsolutePath"
+Write-Output "Aliases folder path: $aliasScriptsAbsolutePath"
 
 Write-Output "Updating system path variable..."
 $currentPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
-$updatedPath = $currentPath + ";" + $predefinedAliasScriptsAbsolutePath + ";" + $userAliasScriptsAbsolutePath
+$updatedPath = $currentPath + ";" + $aliasScriptsAbsolutePath
 
 [System.Environment]::SetEnvironmentVariable("Path", $updatedPath, [System.EnvironmentVariableTarget]::Machine)
 
