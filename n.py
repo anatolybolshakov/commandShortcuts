@@ -53,8 +53,12 @@ if alias_metadata.type == 'retry':
     print('Retry command!')
 
 if alias_metadata.type == 'custom':
+    passed_params_dict = vars(args)
+    if 'alias' in passed_params_dict:
+        del passed_params_dict['alias']
+
     from custom_command.custom_command_handler import handle_custom_command
-    handle_custom_command(alias_metadata.command, alias_metadata.command_file, command_files_path)
+    handle_custom_command(alias_metadata, passed_params_dict, command_files_path)
 
 if alias_metadata.type == 'register_alias':
     aliases_list = read_param(args.aliases).split(' ')
