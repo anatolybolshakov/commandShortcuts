@@ -74,7 +74,7 @@ if alias_metadata.type == 'register_alias':
         params=None,
         command=read_param(args.command),
         command_file=command_alias_file_name,
-        metadata_file=metadata_file_path
+        param_boundary_placeholder=read_param(args.param_boundary_placeholder),
     )
     alias_collection.add_alias_metadata(alias_metadata)
 

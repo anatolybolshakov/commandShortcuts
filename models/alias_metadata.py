@@ -6,15 +6,14 @@ def _json_skip_none(obj):
     return {k: v for k, v in obj.__dict__.items() if v is not None}
 
 class AliasMetadata:
-    def __init__(self, aliases, type_value, description=None, params=None, command=None, command_file=None, metadata_file=None, param_placeholder=None):
+    def __init__(self, aliases, type_value, description=None, params=None, command=None, command_file=None, param_boundary_placeholder=None):
         self.aliases = aliases
         self.description = description
         self.type = type_value
         self.params = params
         self.command = command
         self.command_file = command_file
-        self.metadata_file = metadata_file
-        self.param_placeholder = param_placeholder 
+        self.param_boundary_placeholder = param_boundary_placeholder 
 
 class AliasCollection:
     def __init__(self, aliasesMetadata):
@@ -98,7 +97,7 @@ def read_alias_metadata(alias_metadata_file_path):
             params=params,
             command=item.get('command'),
             command_file=item.get('command_file'),
-            param_placeholder=item.get('param_placeholder')
+            param_boundary_placeholder=item.get('param_boundary_placeholder')
         )
         aliases.append(alias)
 

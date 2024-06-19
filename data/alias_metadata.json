@@ -63,6 +63,12 @@
                 "type": "str",
                 "description": "Provide description for your alias",
                 "default": ""
+            },
+            {
+                "name": "param_boundary_placeholder",
+                "type": "str",
+                "description": "Provide special string for parameter boundary (string which precedes and follows parameter placeholder) - if you don't want to use default {param_name} syntax",
+                "default": ""
             }
         ]
     },
