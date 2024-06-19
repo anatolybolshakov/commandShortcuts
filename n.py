@@ -5,7 +5,7 @@ from models.alias_metadata import (
     read_alias_metadata,
     get_param_type_from_str,
     find_alias_metadata,
-    save_alias_files,
+    save_alias_metadata_for_command_from_file,
     generate_command_alias_file_name
 )
 
@@ -74,7 +74,7 @@ if alias_metadata.type == 'register_alias':
     )
     alias_collection.add_alias_metadata(alias_metadata)
 
-    save_alias_files(command_file_path, metadata_file_path, command_alias_file_name, alias_metadata, command_files_path)
+    save_alias_metadata_for_command_from_file(command_file_path, metadata_file_path, command_alias_file_name, alias_metadata, command_files_path)
     alias_collection.save_to_file(alias_metadata_file_path)
 
     print (f"Aliases {', '.join(aliases_list)} successfully added!")

@@ -87,6 +87,6 @@
         "description": "git status command",
         "type": "custom",
         "params": [],
-        "command": "git status; echo \"1\""
+        "command": "git status"
     }
 ]

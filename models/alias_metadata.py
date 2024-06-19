@@ -110,13 +110,27 @@ def find_alias_metadata(alias, aliases_collection):
 def generate_command_alias_file_name(aliases):
     return f"{'_'.join(aliases)}.txt";
 
-def save_alias_files(command_file_path, metadata_file_path, result_command_file_name, alias_metadata, command_files_path):
+# Note - this method modifies alias_metadata. Refactor in future
+def save_alias_metadata_for_command_from_file(command_file_path, metadata_file_path, result_command_file_name, alias_metadata, command_files_path):
     if command_file_path is not None:
         copied_command_file_path = os.path.join(command_files_path, result_command_file_name)
         shutil.copy(command_file_path, copied_command_file_path)
     
     if metadata_file_path is not None:
-        pass
+        with open(metadata_file_path, 'r') as f:
+            data = json.load(f)
+
+        params = []
+    
+        for param in data:
+            params.append(AliasParameter(
+                name=param['name'],
+                type_value=param['type'],
+                description=param.get('description'),
+                default=param.get('default')
+            ))
+        
+        alias_metadata.params = params
 
 def remove_alias_files(alias_metadata, command_files_path):
     if alias_metadata is not None and alias_metadata.command_file is not None:
