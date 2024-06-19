@@ -1,0 +1,92 @@
+[
+    {
+        "aliases": [
+            "f"
+        ],
+        "description": "Shows desktop notification on finish and plays sound (optional)",
+        "type": "finish_notification",
+        "params": [
+            {
+                "name": "op_name",
+                "type": "str",
+                "description": "Operation Name",
+                "default": "Unnamed operation"
+            },
+            {
+                "name": "no_sound",
+                "type": "int",
+                "description": "Set to 1 or 0 - to turn the sound off/on for notification",
+                "default": "0"
+            }
+        ]
+    },
+    {
+        "aliases": [
+            "r"
+        ],
+        "description": "Retries specified command",
+        "type": "retry",
+        "params": []
+    },
+    {
+        "aliases": [
+            "rg"
+        ],
+        "description": "Registers new alias",
+        "type": "register_alias",
+        "params": [
+            {
+                "name": "aliases",
+                "type": "str",
+                "description": "List of aliases separated by whitespace"
+            },
+            {
+                "name": "command",
+                "type": "str",
+                "description": "Command to execute. Specify either the command or command_file (if both specified, command_file is ignored)",
+                "default": ""
+            },
+            {
+                "name": "command_file",
+                "type": "str",
+                "description": "Txt command file containing the command to execute (CLI command inside). Specify either the command or command_file (if both specified, command_file is ignored)",
+                "default": ""
+            },
+            {
+                "name": "metadata_file",
+                "type": "str",
+                "description": "JSON file containing command parameters description and replacement placeholder",
+                "default": ""
+            },
+            {
+                "name": "description",
+                "type": "str",
+                "description": "Provide description for your alias",
+                "default": ""
+            }
+        ]
+    },
+    {
+        "aliases": [
+            "rm"
+        ],
+        "description": "Removes existing alias",
+        "type": "remove_alias",
+        "params": [
+            {
+                "name": "aliases",
+                "type": "str",
+                "description": "List of aliases separated by whitespace"
+            }
+        ]
+    },
+    {
+        "aliases": [
+            "gs"
+        ],
+        "description": "git status command",
+        "type": "custom",
+        "params": [],
+        "command": "git status; echo \"1\""
+    }
+]

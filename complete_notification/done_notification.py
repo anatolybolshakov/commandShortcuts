@@ -11,7 +11,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 
 def _play_sound():
     if IS_SOUND_ENABLED:
-        playsound(os.path.join(script_dir, 'assets/success.mp3'))
+        playsound(os.path.join(script_dir, r'assets\success.mp3'))
 
 def handle_done_notification(op_name, no_sound):
     message = 'Unnamed operation' if op_name == None or op_name.isspace() else op_name
