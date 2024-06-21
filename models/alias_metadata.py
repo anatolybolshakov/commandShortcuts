@@ -111,11 +111,11 @@ def generate_command_alias_file_name(aliases):
 
 # Note - this method modifies alias_metadata. Refactor in future
 def save_alias_metadata_for_command_from_file(command_file_path, metadata_file_path, result_command_file_name, alias_metadata, command_files_path):
-    if command_file_path is not None:
+    if command_file_path is not None and command_file_path != '':
         copied_command_file_path = os.path.join(command_files_path, result_command_file_name)
         shutil.copy(command_file_path, copied_command_file_path)
-    
-    if metadata_file_path is not None:
+
+    if metadata_file_path is not None and metadata_file_path != '':
         with open(metadata_file_path, 'r') as f:
             data = json.load(f)
 

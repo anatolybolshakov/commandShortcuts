@@ -26,7 +26,25 @@
         ],
         "description": "Retries specified command",
         "type": "retry",
-        "params": []
+        "params": [
+            {
+                "name": "command",
+                "type": "str",
+                "description": "Command to execute. Specify either the command or command_file (if both specified, command_file is ignored)"
+            },
+            {
+                "name": "retry_count",
+                "type": "int",
+                "description": "Count of retries",
+                "default": 3
+            },
+            {
+                "name": "delay_between_retries",
+                "type": "int",
+                "description": "Delay between reties in milliseconds",
+                "default": 100
+            }
+        ]
     },
     {
         "aliases": [

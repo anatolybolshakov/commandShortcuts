@@ -50,7 +50,8 @@ if alias_metadata.type == 'finish_notification':
     handle_done_notification(read_param(args.op_name), read_param(args.no_sound))
 
 if alias_metadata.type == 'retry':
-    print('Retry command!')
+    from custom_command.retry_handler import execute_with_retries
+    execute_with_retries(read_param(args.command), read_param(args.retry_count), read_param(args.delay_between_retries))
 
 if alias_metadata.type == 'custom':
     passed_params_dict = vars(args)
@@ -64,8 +65,10 @@ if alias_metadata.type == 'register_alias':
     aliases_list = read_param(args.aliases).split(' ')
     command_file_path = read_param(args.command_file)
     metadata_file_path = read_param(args.metadata_file)
-    if command_file_path is not None:
+    if command_file_path is not None and command_file_path != "":
         command_alias_file_name = generate_command_alias_file_name(aliases_list)
+    else:
+        command_alias_file_name = None
 
     alias_metadata = AliasMetadata(
         aliases=aliases_list, 

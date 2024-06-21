@@ -21,7 +21,11 @@ def handle_custom_command(alias_metadata, passed_params_dict, command_files_path
     
     command_text = insert_params_values(command_text, alias_metadata.param_boundary_placeholder, passed_params_dict)
     
+    execute_command_text(command_text)
+
+def execute_command_text(command_text):
     # Using Powershell 7 by default if exists, otherwise - using Powershell
     powershell_command = 'pwsh.exe' if shutil.which('pwsh.exe') else 'powershell.exe'
-    process = subprocess.Popen([powershell_command, '-Command', command_text], cwd='.')
-    process.wait()
+    # process = subprocess.Popen([powershell_command, '-Command', command_text], cwd='.')
+    subprocess.check_call([powershell_command, '-Command', command_text], cwd='.')
+
