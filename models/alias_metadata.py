@@ -131,6 +131,13 @@ def save_alias_metadata_for_command_from_file(command_file_path, metadata_file_p
         
         alias_metadata.params = params
 
+# Quotes single or double quotes (' or ") - to keep them for saved commands
+def quote_command_text(command_text):
+    command_text = command_text.replace("'", "`'")
+    command_text = command_text.replace('"', '`"')
+
+    return command_text
+
 def remove_alias_files(alias_metadata, command_files_path):
     if alias_metadata is not None and alias_metadata.command_file is not None:
         copied_command_file_path = os.path.join(command_files_path, alias_metadata.command_file)

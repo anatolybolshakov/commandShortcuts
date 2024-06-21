@@ -20,7 +20,7 @@ def handle_custom_command(alias_metadata, passed_params_dict, command_files_path
             command_text = f.read().strip()
     
     command_text = insert_params_values(command_text, alias_metadata.param_boundary_placeholder, passed_params_dict)
-    
+
     execute_command_text(command_text)
 
 def execute_command_text(command_text):

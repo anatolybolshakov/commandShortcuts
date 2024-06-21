@@ -6,7 +6,8 @@ from models.alias_metadata import (
     get_param_type_from_str,
     find_alias_metadata,
     save_alias_metadata_for_command_from_file,
-    generate_command_alias_file_name
+    generate_command_alias_file_name,
+    quote_command_text
 )
 
 # Null parameter value for strings
@@ -51,11 +52,12 @@ if alias_metadata.type == 'finish_notification':
 
 if alias_metadata.type == 'retry':
     from custom_command.retry_handler import execute_with_retries
-    execute_with_retries(read_param(args.command), read_param(args.retry_count), read_param(args.delay_between_retries))
+
+    execute_with_retries(quote_command_text(read_param(args.command)), read_param(args.retry_count), read_param(args.delay_between_retries))
 
 if alias_metadata.type == 'delay':
     from custom_command.delay_handler import execute_with_delay
-    execute_with_delay(read_param(args.command), read_param(args.delay_str))
+    execute_with_delay(quote_command_text(read_param(args.command)), read_param(args.delay_str))
 
 if alias_metadata.type == 'custom':
     passed_params_dict = vars(args)
@@ -79,7 +81,7 @@ if alias_metadata.type == 'register_alias':
         type_value='custom',
         description=read_param(args.description),
         params=None,
-        command=read_param(args.command),
+        command=quote_command_text(read_param(args.command)),
         command_file=command_alias_file_name,
         param_boundary_placeholder=read_param(args.param_boundary_placeholder),
     )
