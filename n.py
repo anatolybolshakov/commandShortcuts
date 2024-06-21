@@ -53,6 +53,10 @@ if alias_metadata.type == 'retry':
     from custom_command.retry_handler import execute_with_retries
     execute_with_retries(read_param(args.command), read_param(args.retry_count), read_param(args.delay_between_retries))
 
+if alias_metadata.type == 'delay':
+    from custom_command.delay_handler import execute_with_delay
+    execute_with_delay(read_param(args.command), read_param(args.delay_str))
+
 if alias_metadata.type == 'custom':
     passed_params_dict = vars(args)
     if 'alias' in passed_params_dict:

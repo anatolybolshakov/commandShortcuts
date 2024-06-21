@@ -30,7 +30,7 @@
             {
                 "name": "command",
                 "type": "str",
-                "description": "Command to execute. Specify either the command or command_file (if both specified, command_file is ignored)"
+                "description": "Command to execute."
             },
             {
                 "name": "retry_count",
@@ -43,6 +43,26 @@
                 "type": "int",
                 "description": "Delay between reties in milliseconds",
                 "default": 100
+            }
+        ]
+    },
+    {
+        "aliases": [
+            "d"
+        ],
+        "description": "Executes command after specified delay",
+        "type": "delay",
+        "params": [
+            {
+                "name": "command",
+                "type": "str",
+                "description": "Command to execute."
+            },
+            {
+                "name": "delay_str",
+                "type": "str",
+                "description": "Delay - in format '<integer>[ms,s,m,h]",
+                "default": "1s"
             }
         ]
     },
