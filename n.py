@@ -10,6 +10,12 @@ from models.alias_metadata import (
     quote_command_text
 )
 
+from custom_command.gui_alias_editor.editor_app import (
+    run_editor
+)
+
+from constants import CommandType
+
 # Null parameter value for strings
 NULL_PARAM_SYMBOL = '*'
 
@@ -46,20 +52,20 @@ alias_metadata = find_alias_metadata(args.alias, alias_collection)
 if alias_metadata is None:
     raise Exception(f'Not found metadata for alias {args.alias}. Make sure this alias is registered')
 
-if alias_metadata.type == 'finish_notification':
+if alias_metadata.type == CommandType.FINISH_NOTIFICATION.value:
     from complete_notification.done_notification import handle_done_notification
     handle_done_notification(read_param(args.op_name), read_param(args.no_sound))
 
-if alias_metadata.type == 'retry':
+if alias_metadata.type == CommandType.RETRY.value:
     from custom_command.retry_handler import execute_with_retries
 
     execute_with_retries(quote_command_text(read_param(args.command)), read_param(args.retry_count), read_param(args.delay_between_retries))
 
-if alias_metadata.type == 'delay':
+if alias_metadata.type == CommandType.DELAY.value:
     from custom_command.delay_handler import execute_with_delay
     execute_with_delay(quote_command_text(read_param(args.command)), read_param(args.delay_str))
 
-if alias_metadata.type == 'custom':
+if alias_metadata.type == CommandType.CUSTOM.value:
     passed_params_dict = vars(args)
     if 'alias' in passed_params_dict:
         del passed_params_dict['alias']
@@ -67,7 +73,7 @@ if alias_metadata.type == 'custom':
     from custom_command.custom_command_handler import handle_custom_command
     handle_custom_command(alias_metadata, passed_params_dict, command_files_path)
 
-if alias_metadata.type == 'register_alias':
+if alias_metadata.type == CommandType.REGISTER_ALIAS.value:
     aliases_list = read_param(args.aliases).split(' ')
     command_file_path = read_param(args.command_file)
     metadata_file_path = read_param(args.metadata_file)
@@ -92,7 +98,7 @@ if alias_metadata.type == 'register_alias':
 
     print (f"Aliases {', '.join(aliases_list)} successfully added!")
 
-if alias_metadata.type == 'remove_alias':
+if alias_metadata.type == CommandType.REMOVE_ALIAS.value:
     aliases_list = read_param(args.aliases).split(' ')
     
     removed_aliases = alias_collection.remove_aliases_metadata(aliases_list, command_files_path)
@@ -104,3 +110,5 @@ if alias_metadata.type == 'remove_alias':
     else:
         print (f"Aliases {', '.join(removed_aliases)} successfully removed!")
 
+if alias_metadata.type == CommandType.GUI_ALIAS_EDITOR.value:
+    run_editor(command_files_path, alias_collection)

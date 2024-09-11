@@ -68,6 +68,13 @@
     },
     {
         "aliases": [
+            "e"
+        ],
+        "description": "Opens GUI for aliases editing",
+        "type": "gui_alias_editor"
+    },
+    {
+        "aliases": [
             "rg"
         ],
         "description": "Registers new alias",

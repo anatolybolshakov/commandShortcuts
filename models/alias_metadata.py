@@ -2,6 +2,8 @@ import os
 import json
 import shutil
 
+from constants import CommandType
+
 def _json_skip_none(obj):
     return {k: v for k, v in obj.__dict__.items() if v is not None}
 
@@ -54,6 +56,19 @@ class AliasCollection:
     def save_to_file(self, alias_metadata_file_path):
         with open(alias_metadata_file_path, 'w') as f:
             json.dump(self.aliasesMetadata, f, default=_json_skip_none, indent=4)
+    
+    def get_custom_commands_data(self):
+        custom_aliases_data = []
+
+        if self.aliasesMetadata == None:
+            return custom_aliases_data
+
+        for alias_data in self.aliasesMetadata:
+            if alias_data.type == CommandType.CUSTOM.value:
+                custom_aliases_data.append(alias_data)
+
+        return custom_aliases_data
+
 
 class AliasParameter:
     def __init__(self, name, type_value, description, default=None):
@@ -107,7 +122,10 @@ def find_alias_metadata(alias, aliases_collection):
     return aliases_collection.aliasesDictionary.get(alias)
 
 def generate_command_alias_file_name(aliases):
-    return f"{'_'.join(aliases)}.txt";
+    return f"{'_'.join(aliases)}.txt"
+
+def get_formatted_aliases_list(aliases):
+    return ' '.join(aliases)
 
 # Note - this method modifies alias_metadata. Refactor in future
 def save_alias_metadata_for_command_from_file(command_file_path, metadata_file_path, result_command_file_name, alias_metadata, command_files_path):
