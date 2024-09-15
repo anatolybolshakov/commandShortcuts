@@ -26,9 +26,9 @@ class AliasCollection:
                 self.aliasesDictionary[alias] = aliasData
 
     def add_alias_metadata(self, alias_metadata):
-        for alias in alias_metadata.aliases:
-            if alias in self.aliasesDictionary:
-                raise ValueError(f"Alias '{alias}' is already registered. Please use another alias or amend existing registered alias.")
+        already_registered_alias = self.get_first_already_registered_alias(alias_metadata.aliases)
+        if already_registered_alias != None:
+                raise ValueError(f"Alias '{already_registered_alias}' is already registered. Please use another alias or amend existing registered alias.")
         
         self.aliasesMetadata.append(alias_metadata)
         for alias in alias_metadata.aliases:
@@ -69,6 +69,12 @@ class AliasCollection:
 
         return custom_aliases_data
 
+    def get_first_already_registered_alias(self, aliases_list):
+        for alias in aliases_list:
+            if alias in self.aliasesDictionary:
+                return alias
+
+        return None
 
 class AliasParameter:
     def __init__(self, name, type_value, description, default=None):
@@ -171,3 +177,4 @@ def remove_alias_files(alias_metadata, command_files_path):
             os.remove(copied_command_file_path)
         else:
             print(f"Error: command metadata file {copied_command_file_path} not found")
+

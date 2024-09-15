@@ -55,33 +55,39 @@ class MainWindow(wx.Frame):
         print('Delete')
 
     def on_save_click(self, event):
-        if self.commandsCbx.Selection < 0:
-            aliases_list = self.commandsCbx.Value
-            command_content = self.editCommandTextCtrl.Value
+        try:
+            if self.commandsCbx.Selection < 0:
+                aliases_list = self.commandsCbx.Value
+                command_content = self.editCommandTextCtrl.Value
 
-            if aliases_list.strip() == '':
-                self.show_error_popup('Command aliases list should not be empty')
-                return
-            
-            if command_content.strip() == '':
-                self.show_error_popup('Command should not be empty')
-                return
+                if aliases_list.strip() == '':
+                    self.show_error_popup('Command aliases list should not be empty')
+                    return
+                
+                if command_content.strip() == '':
+                    self.show_error_popup('Command should not be empty')
+                    return
 
-            command_alias_file_name = generate_command_alias_file_name(aliases_list)
-            save_command_to_file(self.command_files_path, command_alias_file_name, command_content)
+                command_alias_file_name = generate_command_alias_file_name(aliases_list)
 
-            alias_metadata = AliasMetadata(
-                aliases=aliases_list.split(' '), 
-                type_value='custom',
-                description='todo',
-                params=[],
-                command=None,
-                command_file=command_alias_file_name,
-                param_boundary_placeholder=None,
-            )
+                alias_metadata = AliasMetadata(
+                    aliases=aliases_list.split(' '), 
+                    type_value='custom',
+                    description='todo',
+                    params=[],
+                    command=None,
+                    command_file=command_alias_file_name,
+                    param_boundary_placeholder=None,
+                )
 
-            self.alias_collection.add_alias_metadata(alias_metadata)
-            self.alias_collection.save_to_file(self.alias_metadata_file_path)
+                self.alias_collection.add_alias_metadata(alias_metadata)
+                
+                save_command_to_file(self.command_files_path, command_alias_file_name, command_content)
+                self.alias_collection.save_to_file(self.alias_metadata_file_path)
+        except Exception as e:
+            print(11)
+            self.show_error_popup(f"{e}")
+
 
     def show_error_popup(self, error_message):
         wx.MessageBox(error_message,"Error", wx.OK | wx.ICON_ERROR)
