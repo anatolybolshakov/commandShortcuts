@@ -111,4 +111,4 @@ if alias_metadata.type == CommandType.REMOVE_ALIAS.value:
         print (f"Aliases {', '.join(removed_aliases)} successfully removed!")
 
 if alias_metadata.type == CommandType.GUI_ALIAS_EDITOR.value:
-    run_editor(command_files_path, alias_collection)
+    run_editor(command_files_path, alias_metadata_file_path, alias_collection)

@@ -149,6 +149,14 @@ def save_alias_metadata_for_command_from_file(command_file_path, metadata_file_p
         
         alias_metadata.params = params
 
+def save_command_to_file(command_files_path, result_command_file_name, command_content):
+    if not os.path.exists(command_files_path):
+        os.makedirs(command_files_path)
+
+    result_command_file_path = os.path.join(command_files_path, result_command_file_name)
+    with open(result_command_file_path, 'w') as result_file:
+        result_file.write(command_content)
+
 # Quotes single or double quotes (' or ") - to keep them for saved commands
 def quote_command_text(command_text):
     command_text = command_text.replace("'", "`'")
